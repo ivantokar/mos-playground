@@ -38,8 +38,10 @@ if let empty, !empty.isEmpty {
 }
 
 // Comma-separated conditions stop evaluating after a failure.
+// Top-level variables in main.swift are main-actor isolated in Swift 6,
+// so the function that mutates the counter has to be isolated too.
 var calls = 0
-func laterValue() -> Int? {
+@MainActor func laterValue() -> Int? {
     calls += 1
     return 9
 }
