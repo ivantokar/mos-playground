@@ -8,6 +8,7 @@ let package = Package(
         .executable(name: "molecule-001", targets: ["Molecule001Tuples"]),
         .executable(name: "molecule-002", targets: ["Molecule002TuplePatterns"]),
         .executable(name: "molecule-003", targets: ["Molecule003Guard"]),
+        .executable(name: "molecule-004", targets: ["Molecule004OptionalBinding"]),
     ],
     targets: [
         .executableTarget(
@@ -23,6 +24,11 @@ let package = Package(
         .executableTarget(
             name: "Molecule003Guard",
             path: "Molecules/003-guard",
+            exclude: ["README.md"]
+        ),
+        .executableTarget(
+            name: "Molecule004OptionalBinding",
+            path: "Molecules/004-optional-binding",
             exclude: ["README.md"]
         ),
     ]
