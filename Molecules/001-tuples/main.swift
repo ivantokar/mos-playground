@@ -10,6 +10,8 @@
 // Explore. Change things. Break things. Learn why.
 
 // MARK: - 1. Group values without declaring a new nominal type
+// WHY: This section demonstrates group values without declaring a new nominal type.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 // A tuple is useful when the relationship is local and the group itself does not
 // need behavior or a reusable identity.
@@ -17,6 +19,8 @@ let response = (status: 200, message: "OK")
 print(response.status, response.message)
 
 // MARK: - 2. The tuple type can be explicit
+// WHY: This section demonstrates the tuple type can be explicit.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 // Labels are part of the tuple type, while an unlabeled tuple literal can still
 // be assigned when contextual labels are known.
@@ -24,6 +28,8 @@ let bounds: (min: Int, max: Int) = (3, 9)
 print(bounds.min, bounds.max)
 
 // MARK: - 3. Return several related values as one compound value
+// WHY: This section demonstrates return several related values as one compound value.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 func extremes(in values: [Int]) -> (min: Int, max: Int)? {
     guard let first = values.first else { return nil }
@@ -44,12 +50,16 @@ if let result = extremes(in: [8, -6, 2, 109, 3, 71]) {
 }
 
 // MARK: - 4. Destructuring can ignore values you do not need
+// WHY: This section demonstrates destructuring can ignore values you do not need.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 let user = (id: 42, name: "Mira", isAdmin: true)
 let (id, _, isAdmin) = user
 print(id, isAdmin)
 
 // MARK: - 5. Optional tuple vs tuple of optionals
+// WHY: This section demonstrates optional tuple vs tuple of optionals.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 let maybePoint: (x: Int, y: Int)? = nil
 let partialPoint: (x: Int?, y: Int?) = (x: 10, y: nil)
@@ -57,6 +67,8 @@ print(maybePoint as Any)
 print(partialPoint as Any)
 
 // MARK: - 6. Tuples compose with switch pattern matching
+// WHY: This section demonstrates tuples compose with switch pattern matching.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 let point = (x: 0, y: 4)
 
@@ -68,6 +80,8 @@ default: print("elsewhere")
 }
 
 // MARK: - 7. Direct equality does not imply protocol conformance
+// WHY: This section demonstrates direct equality does not imply protocol conformance.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 print((1, 2) == (1, 2))
 
@@ -84,6 +98,8 @@ print((1, 2) == (1, 2))
 // let lookup: [(Int, Int): String] = [(1, 2): "value"]
 
 // MARK: - 8. Know when the tuple has grown into a real type
+// WHY: This section demonstrates know when the tuple has grown into a real type.
+// TRY: Change one input in this section, predict the result, and run it again.
 
 struct Coordinate: Equatable, Hashable {
     let x: Int
@@ -92,13 +108,3 @@ struct Coordinate: Equatable, Hashable {
 
 let coordinate = Coordinate(x: 2, y: 5)
 print(coordinate)
-
-// -----------------------------------------------------------------------------
-// GUIDED EXERCISES — read the examples above before trying these changes.
-// The original examples and MARK sections above are intentionally preserved.
-// 1. Predict the output of each print before running this executable.
-// 2. Change one input at a time and compare the output with your prediction.
-// 3. Uncomment one manual compiler experiment at a time (if provided),
-//    read the diagnostic, and comment it out again before running normally.
-// 4. Explain in your own words which Swift rule each example demonstrates.
-// -----------------------------------------------------------------------------
