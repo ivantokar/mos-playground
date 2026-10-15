@@ -17,6 +17,4 @@ Each numbered section explains **why** the code exists, prints a visible result,
 
 The sections progress from the core idea to practical uses. Compiler experiments should be attempted deliberately, not enabled in the normal executable.
 
-## Article
-
-[Read the full chapter](https://ivantokar.com/posts/tuples-group-values-without-creating-a-type)
+**Read the article:** [Tuples: Group Values Without Creating a Type](https://ivantokar.com/posts/tuples-group-values-without-creating-a-type)
