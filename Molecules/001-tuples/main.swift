@@ -1,4 +1,12 @@
-// Molecules of Swift #001 — Tuples
+// -----------------------------------------------------------------------------
+// MOLECULES OF SWIFT · #001
+// Tuples: Group Values Without Creating a Type
+//
+// Ivan Tokar · https://ivantokar.com
+// Article: https://ivantokar.com/posts/tuples-group-values-without-creating-a-type
+// Playground: https://github.com/ivantokar/mos-playground
+// -----------------------------------------------------------------------------
+//
 // Read each step, run the program, then try the suggested changes.
 // Tuples group a few related values without declaring a new struct.
 
