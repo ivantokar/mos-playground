@@ -13,7 +13,7 @@ swift run molecule-004
 
 ## How to use it
 
-Each numbered section explains the Swift rule and includes a concrete **TRY** exercise. Some older examples use assertions rather than printing their results; successful assertions produce no output. First predict the output, then run the program. Change one value at a time and run it again.
+Each numbered section explains the Swift rule and includes a concrete **TRY** exercise. First predict the output, then run the program. Change one value at a time and run it again.
 
 The sections progress from the core idea to practical uses. Compiler experiments should be attempted deliberately, not enabled in the normal executable.
 
