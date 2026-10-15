@@ -17,6 +17,4 @@ Each numbered section explains the Swift rule and includes a concrete **TRY** ex
 
 The sections progress from the core idea to practical uses. Compiler experiments should be attempted deliberately, not enabled in the normal executable.
 
-## Article
-
-[Read the full chapter](https://ivantokar.com/posts/guard-keep-the-main-path-flat)
+**Read the article:** [guard: Keep the Main Path Flat](https://ivantokar.com/posts/guard-keep-the-main-path-flat)
