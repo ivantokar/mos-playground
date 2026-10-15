@@ -1,80 +1,44 @@
-// -----------------------------------------------------------------------------
-// MOLECULES OF SWIFT · #002
-// Tuple Patterns: Destructure Values Where You Use Them
-//
-// Ivan Tokar · https://ivantokar.com
-// Article: https://ivantokar.com/posts/tuple-patterns-destructure-values-where-you-use-them
-// Playground: https://github.com/ivantokar/mos-playground
-// -----------------------------------------------------------------------------
-//
-// Explore. Change things. Break things. Learn why.
+// Molecules of Swift #002 — Tuple Patterns
+// A tuple groups values. A tuple pattern takes them apart at the point of use.
 
-// MARK: - 1. Decompose a tuple into local bindings
-
+print("1. Give the parts names")
 let response = (status: 200, message: "OK")
 let (status, message) = response
-print(status, message)
+print("\(status): \(message)") // 200: OK
+// WHY: the pattern matches the tuple's two positions.
+// TRY: swap the variable names. Does Swift swap the values too?
 
-// MARK: - 2. Ignore a position with the wildcard pattern
+print("\n2. Ignore a value")
+let account = (id: 42, name: "Mira", isAdmin: true)
+let (id, _, isAdmin) = account
+print("\(id) is admin: \(isAdmin)") // 42 is admin: true
+// WHY: _ means this position is not needed here.
 
-let user = (id: 42, name: "Mira", isAdmin: true)
-let (id, _, isAdmin) = user
-print(id, isAdmin)
-
-// MARK: - 3. Destructure directly in a for-in loop
-
-let scores = [
-    (name: "Mira", score: 91),
-    (name: "Noah", score: 84),
-    (name: "Ava", score: 97),
-]
-
+print("\n3. Unpack inside a loop")
+let scores = [("Mira", 91), ("Noah", 84), ("Ava", 97)]
 for (name, score) in scores {
     print("\(name): \(score)")
 }
+// WHY: there is no need to access .0 and .1 for every row.
+// TRY: print only scores >= 90.
 
-// MARK: - 4. Mix values, ranges, and wildcards
-
+print("\n4. Match a point")
 let point = (x: 0, y: 4)
-
 switch point {
-case (0, 0): print("origin")
-case (0, _): print("y-axis")
-case (_, 0): print("x-axis")
-case (-5...5, -5...5): print("inside the box")
-default: print("outside")
+case (0, 0): print("Origin")
+case (0, _): print("On the y-axis") // this branch
+case (_, 0): print("On the x-axis")
+default: print("Elsewhere")
 }
+// WHY: patterns describe shapes; _ accepts any value in that position.
+// TRY: change point to (0, 0). Why must the origin case come first?
 
-// MARK: - 5. Bind values only when the pattern matches
-
-let anotherPoint = (x: 8, y: 0)
-
-switch anotherPoint {
-case (let x, 0): print("x-axis at \(x)")
-case (0, let y): print("y-axis at \(y)")
-case let (x, y): print("elsewhere at \(x), \(y)")
-}
-
-// MARK: - 6. Refine a pattern with where
-
+print("\n5. Add a condition")
 let vector = (x: 3, y: -3)
-
 switch vector {
-case let (x, y) where x == y: print("main diagonal")
-case let (x, y) where x == -y: print("opposite diagonal")
-case let (x, y): print("ordinary vector: \(x), \(y)")
+case let (x, y) where x == y: print("Main diagonal")
+case let (x, y) where x == -y: print("Other diagonal") // this branch
+default: print("Not on either diagonal")
 }
-
-// MARK: - 7. The same pattern language works with if case
-
-let sample = (x: 12, y: 100)
-
-if case (let x, 100) = sample {
-    print("y = 100 at x = \(x)")
-}
-
-// MARK: - 8. Manual compiler experiment
-
-// Uncomment to see the diagnostic for a pattern whose shape does not match.
-//
-// let (code, text, extra) = response
+// WHY: where adds a rule after the values have been bound.
+// TRY: change y to 3, then 4. Predict the branch each time.
