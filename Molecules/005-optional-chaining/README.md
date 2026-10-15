@@ -25,7 +25,7 @@ Read [main.swift](main.swift) from top to bottom. Follow the explanations and ex
 
 Run the program once. Then follow the **Try it** comments, changing only one value at a time. Predict the output before each run.
 
-For deeper technical detail, read the [chapter](https://github.com/ivantokar/ivantokar.com/blob/article/optional-chaining-let-absence-flow-through-an-expression/apps/website/src/posts/optional-chaining-let-absence-flow-through-an-expression.mdx).
+For deeper technical detail, read the [chapter](https://ivantokar.com/posts/optional-chaining-let-absence-flow-through-an-expression).
 
 ## Further reading
 
