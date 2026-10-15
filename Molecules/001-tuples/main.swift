@@ -10,6 +10,8 @@
 // Explore. Change things. Break things. Learn why.
 
 // MARK: - 1. Group values without declaring a new nominal type
+// WHY: A tuple keeps these two response fields together without requiring a dedicated type.
+// TRY: Change status to 404 and message to "Not Found"; check that named access still works.
 
 // A tuple is useful when the relationship is local and the group itself does not
 // need behavior or a reusable identity.
@@ -17,6 +19,8 @@ let response = (status: 200, message: "OK")
 print(response.status, response.message)
 
 // MARK: - 2. The tuple type can be explicit
+// WHY: The annotation specifies both element types and labels; the literal gets its labels from that context.
+// TRY: Change (3, 9) to (min: -3, max: 9). Then try a String where an Int is required.
 
 // Labels are part of the tuple type, while an unlabeled tuple literal can still
 // be assigned when contextual labels are known.
@@ -24,6 +28,8 @@ let bounds: (min: Int, max: Int) = (3, 9)
 print(bounds.min, bounds.max)
 
 // MARK: - 3. Return several related values as one compound value
+// WHY: The optional return covers an empty array: there is no first value from which to calculate extremes.
+// TRY: Call extremes(in: []) and print a fallback in an else branch.
 
 func extremes(in values: [Int]) -> (min: Int, max: Int)? {
     guard let first = values.first else { return nil }
@@ -44,12 +50,16 @@ if let result = extremes(in: [8, -6, 2, 109, 3, 71]) {
 }
 
 // MARK: - 4. Destructuring can ignore values you do not need
+// WHY: The underscore ignores the name field; id and isAdmin remain bound to their tuple positions.
+// TRY: Replace _ with name and include it in the print statement.
 
 let user = (id: 42, name: "Mira", isAdmin: true)
 let (id, _, isAdmin) = user
 print(id, isAdmin)
 
 // MARK: - 5. Optional tuple vs tuple of optionals
+// WHY: An optional tuple can be entirely absent, while a tuple of optionals can exist with only one coordinate.
+// TRY: Give maybePoint a value, then set both coordinates of partialPoint to nil.
 
 let maybePoint: (x: Int, y: Int)? = nil
 let partialPoint: (x: Int?, y: Int?) = (x: 10, y: nil)
@@ -57,6 +67,8 @@ print(maybePoint as Any)
 print(partialPoint as Any)
 
 // MARK: - 6. Tuples compose with switch pattern matching
+// WHY: A switch checks cases in order; a wildcard matches any value at that position.
+// TRY: Change point to (0, 0), then (3, 0), and predict the chosen case.
 
 let point = (x: 0, y: 4)
 
@@ -68,6 +80,8 @@ default: print("elsewhere")
 }
 
 // MARK: - 7. Direct equality does not imply protocol conformance
+// WHY: Equality between supported tuple elements does not mean the tuple conforms to Equatable or Hashable as a generic type.
+// TRY: Try each commented compiler experiment separately and read the diagnostic.
 
 print((1, 2) == (1, 2))
 
@@ -84,6 +98,8 @@ print((1, 2) == (1, 2))
 // let lookup: [(Int, Int): String] = [(1, 2): "value"]
 
 // MARK: - 8. Know when the tuple has grown into a real type
+// WHY: Use a named struct when coordinates need protocol conformance or reusable behavior.
+// TRY: Create a Set<Coordinate> and test whether it contains coordinate.
 
 struct Coordinate: Equatable, Hashable {
     let x: Int

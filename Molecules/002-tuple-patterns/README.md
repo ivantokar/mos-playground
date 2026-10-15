@@ -1,29 +1,22 @@
 # Molecules of Swift #002 — Tuple Patterns: Destructure Values Where You Use Them
 
-Executable companion for **Tuple Patterns: Destructure Values Where You Use Them**.
+This is a guided executable lesson, not a test suite. Read the comments in [main.swift](main.swift) from top to bottom.
 
-## What this verifies
-
-- a tuple can be decomposed into local bindings with a matching pattern;
-- `_` ignores a tuple position without creating a binding;
-- `for-in` can destructure tuple elements directly;
-- tuple patterns in `switch` can combine literals, ranges, wildcards, and value bindings;
-- `where` can refine a match after values are bound;
-- `if case` uses the same pattern language;
-- pattern shape must match the value being destructured.
-
-## Running
+## Run
 
 From the repository root:
 
-```bash
+```sh
+swift build
 swift run molecule-002
 ```
 
-Or open the package in Xcode and run the `molecule-002` executable.
+## How to use it
 
-The intentionally invalid shape-mismatch experiment is commented out in `main.swift`.
+Each numbered section explains **why** the code exists, prints a visible result, and includes a **TRY** exercise. First predict the output, then run the program. Change one value at a time and run it again.
+
+The sections progress from the core idea to practical uses. Compiler experiments should be attempted deliberately, not enabled in the normal executable.
 
 ## Article
 
-[Tuple Patterns: Destructure Values Where You Use Them](https://ivantokar.com/posts/tuple-patterns-destructure-values-where-you-use-them)
+[Read the full chapter](https://ivantokar.com/posts/tuple-patterns-destructure-values-where-you-use-them)
