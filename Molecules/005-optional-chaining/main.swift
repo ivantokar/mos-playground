@@ -89,12 +89,5 @@ if let city = person?.address?.city, !city.isEmpty {
 
 print("All Molecule #005 checks passed.")
 
-// -----------------------------------------------------------------------------
-// GUIDED EXERCISES — read the examples above before trying these changes.
-// The original examples and MARK sections above are intentionally preserved.
-// 1. Predict the output of each print before running this executable.
-// 2. Change one input at a time and compare the output with your prediction.
-// 3. Uncomment one manual compiler experiment at a time (if provided),
-//    read the diagnostic, and comment it out again before running normally.
-// 4. Explain in your own words which Swift rule each example demonstrates.
-// -----------------------------------------------------------------------------
+// Learning exercise: choose one example above, change a single input,
+// predict the result, and run the executable to compare.
