@@ -1,30 +1,22 @@
 # Molecules of Swift #001 — Tuples: Group Values Without Creating a Type
 
-Executable companion for **Tuples: Group Values Without Creating a Type**.
+This is a guided executable lesson, not a test suite. Read the comments in [main.swift](main.swift) from top to bottom.
 
-## What this verifies
-
-- tuples group related values without declaring a nominal type;
-- tuple labels and explicit tuple types;
-- multiple return values;
-- destructuring and ignored positions;
-- optional tuples versus tuples of optionals;
-- tuple pattern matching;
-- direct tuple equality is distinct from `Equatable` / `Hashable` conformance;
-- a named type provides a home for conformances and behavior.
-
-## Running
+## Run
 
 From the repository root:
 
-```bash
+```sh
+swift build
 swift run molecule-001
 ```
 
-Or open the package in Xcode and run the `molecule-001` executable.
+## How to use it
 
-The intentionally non-compiling `Equatable` and `Hashable` experiments are commented out in `main.swift`.
+Each numbered section explains **why** the code exists, prints a visible result, and includes a **TRY** exercise. First predict the output, then run the program. Change one value at a time and run it again.
+
+The sections progress from the core idea to practical uses. Compiler experiments should be attempted deliberately, not enabled in the normal executable.
 
 ## Article
 
-[Tuples: Group Values Without Creating a Type](https://ivantokar.com/posts/tuples-group-values-without-creating-a-type)
+[Read the full chapter](https://ivantokar.com/posts/tuples-group-values-without-creating-a-type)
