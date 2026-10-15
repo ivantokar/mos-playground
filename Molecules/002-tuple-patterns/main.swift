@@ -7,46 +7,84 @@
 // Playground: https://github.com/ivantokar/mos-playground
 // -----------------------------------------------------------------------------
 //
-// A tuple groups values. A tuple pattern takes them apart at the point of use.
+// Explore. Change things. Break things. Learn why.
 
-print("1. Give the parts names")
+// MARK: - 1. Decompose a tuple into local bindings
+
 let response = (status: 200, message: "OK")
 let (status, message) = response
-print("\(status): \(message)") // 200: OK
-// WHY: the pattern matches the tuple's two positions.
-// TRY: swap the variable names. Does Swift swap the values too?
+print(status, message)
 
-print("\n2. Ignore a value")
-let account = (id: 42, name: "Mira", isAdmin: true)
-let (id, _, isAdmin) = account
-print("\(id) is admin: \(isAdmin)") // 42 is admin: true
-// WHY: _ means this position is not needed here.
+// MARK: - 2. Ignore a position with the wildcard pattern
 
-print("\n3. Unpack inside a loop")
-let scores = [("Mira", 91), ("Noah", 84), ("Ava", 97)]
+let user = (id: 42, name: "Mira", isAdmin: true)
+let (id, _, isAdmin) = user
+print(id, isAdmin)
+
+// MARK: - 3. Destructure directly in a for-in loop
+
+let scores = [
+    (name: "Mira", score: 91),
+    (name: "Noah", score: 84),
+    (name: "Ava", score: 97),
+]
+
 for (name, score) in scores {
     print("\(name): \(score)")
 }
-// WHY: there is no need to access .0 and .1 for every row.
-// TRY: print only scores >= 90.
 
-print("\n4. Match a point")
+// MARK: - 4. Mix values, ranges, and wildcards
+
 let point = (x: 0, y: 4)
-switch point {
-case (0, 0): print("Origin")
-case (0, _): print("On the y-axis") // this branch
-case (_, 0): print("On the x-axis")
-default: print("Elsewhere")
-}
-// WHY: patterns describe shapes; _ accepts any value in that position.
-// TRY: change point to (0, 0). Why must the origin case come first?
 
-print("\n5. Add a condition")
-let vector = (x: 3, y: -3)
-switch vector {
-case let (x, y) where x == y: print("Main diagonal")
-case let (x, y) where x == -y: print("Other diagonal") // this branch
-default: print("Not on either diagonal")
+switch point {
+case (0, 0): print("origin")
+case (0, _): print("y-axis")
+case (_, 0): print("x-axis")
+case (-5...5, -5...5): print("inside the box")
+default: print("outside")
 }
-// WHY: where adds a rule after the values have been bound.
-// TRY: change y to 3, then 4. Predict the branch each time.
+
+// MARK: - 5. Bind values only when the pattern matches
+
+let anotherPoint = (x: 8, y: 0)
+
+switch anotherPoint {
+case (let x, 0): print("x-axis at \(x)")
+case (0, let y): print("y-axis at \(y)")
+case let (x, y): print("elsewhere at \(x), \(y)")
+}
+
+// MARK: - 6. Refine a pattern with where
+
+let vector = (x: 3, y: -3)
+
+switch vector {
+case let (x, y) where x == y: print("main diagonal")
+case let (x, y) where x == -y: print("opposite diagonal")
+case let (x, y): print("ordinary vector: \(x), \(y)")
+}
+
+// MARK: - 7. The same pattern language works with if case
+
+let sample = (x: 12, y: 100)
+
+if case (let x, 100) = sample {
+    print("y = 100 at x = \(x)")
+}
+
+// MARK: - 8. Manual compiler experiment
+
+// Uncomment to see the diagnostic for a pattern whose shape does not match.
+//
+// let (code, text, extra) = response
+
+// -----------------------------------------------------------------------------
+// GUIDED EXERCISES — read the examples above before trying these changes.
+// The original examples and MARK sections above are intentionally preserved.
+// 1. Predict the output of each print before running this executable.
+// 2. Change one input at a time and compare the output with your prediction.
+// 3. Uncomment one manual compiler experiment at a time (if provided),
+//    read the diagnostic, and comment it out again before running normally.
+// 4. Explain in your own words which Swift rule each example demonstrates.
+// -----------------------------------------------------------------------------
