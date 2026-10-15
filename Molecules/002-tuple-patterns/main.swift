@@ -1,4 +1,12 @@
-// Molecules of Swift #002 — Tuple Patterns
+// -----------------------------------------------------------------------------
+// MOLECULES OF SWIFT · #002
+// Tuple Patterns: Destructure Values Where You Use Them
+//
+// Ivan Tokar · https://ivantokar.com
+// Article: https://ivantokar.com/posts/tuple-patterns-destructure-values-where-you-use-them
+// Playground: https://github.com/ivantokar/mos-playground
+// -----------------------------------------------------------------------------
+//
 // A tuple groups values. A tuple pattern takes them apart at the point of use.
 
 print("1. Give the parts names")
