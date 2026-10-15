@@ -1,111 +1,59 @@
-// -----------------------------------------------------------------------------
-// MOLECULES OF SWIFT · #004
-// Optional Binding: Turn an Optional Into a Value
-//
-// Ivan Tokar · https://ivantokar.com
-// Article: https://ivantokar.com/posts/optional-binding-turn-an-optional-into-a-value
-// Playground: https://github.com/ivantokar/mos-playground
-// -----------------------------------------------------------------------------
-//
-// Explore. Change things. Break things. Learn why.
+// Molecules of Swift #004 — Optional Binding
+// An optional may hold a value or nil. if let opens the present case.
 
-print("Molecule #004 — Optional Binding")
-
-// A successful binding creates a non-optional local value.
-if let number = Int("42") {
-    assert(number + 1 == 43)
-}
-if let number = Int("invalid") {
-    print("Unexpected: \(number)")
+print("1. Convert user input")
+let input = "42"
+if let number = Int(input) {
+    print(number + 1) // 43
 } else {
-    print("Invalid input was skipped.")
+    print("Please enter a number")
 }
+// WHY: Int(_:) returns Int? because parsing can fail.
+// TRY: change input to "forty-two". Which branch runs?
 
-// Short binding shadows the optional only inside the if branch.
+print("\n2. Use a shorter binding")
 let nickname: String? = "Mira"
 if let nickname {
-    assert(nickname.uppercased() == "MIRA")
+    print(nickname.uppercased()) // MIRA
 }
-assert(nickname == "Mira")
+// WHY: inside the branch, nickname is a String rather than String?.
+// TRY: set nickname to nil. The branch is skipped.
 
-// Presence does not imply nonempty or nonzero.
-let zero: Int? = 0
-let empty: String? = ""
-if let zero { assert(zero == 0) }
-if let empty { assert(empty.isEmpty) }
-if let empty, !empty.isEmpty {
-    print("Only a nonempty value reaches this line: \(empty)")
+print("\n3. Present does not mean nonempty")
+let maybeText: String? = ""
+if let text = maybeText {
+    print("Present, length: \(text.count)") // Present, length: 0
 }
+if let text = maybeText, !text.isEmpty {
+    print("Nonempty: \(text)")
+} else {
+    print("Missing or empty") // this branch
+}
+// WHY: optional binding checks for nil, not for valid content.
+// TRY: change "" to "Swift" and compare the output.
 
-// Comma-separated conditions stop evaluating after a failure.
-// Top-level variables in main.swift are main-actor isolated in Swift 6,
-// so the function that mutates the counter has to be isolated too.
-var calls = 0
-@MainActor func laterValue() -> Int? {
-    calls += 1
-    return 9
-}
-let missing: Int? = nil
-if let first = missing, let second = laterValue(), first < second {
-    print("Unexpected: \(first) \(second)")
-}
-assert(calls == 0)
-let present: Int? = 4
-if let first = present, let second = laterValue(), first < second {
-    assert(first == 4 && second == 9)
-}
-assert(calls == 1)
-
-// Earlier bindings are available in later conditions.
-func parsedRange(_ lower: String, _ upper: String) -> ClosedRange<Int>? {
-    if let start = Int(lower), let end = Int(upper), start <= end {
+print("\n4. Combine dependent checks")
+func numberRange(_ startText: String, _ endText: String) -> ClosedRange<Int>? {
+    if let start = Int(startText),
+       let end = Int(endText),
+       start <= end {
         return start...end
     }
     return nil
 }
-assert(parsedRange("3", "7") == 3...7)
-assert(parsedRange("7", "3") == nil)
-assert(parsedRange("three", "7") == nil)
+if let range = numberRange("3", "7") {
+    print(range.contains(5)) // true
+}
+print(numberRange("7", "3") as Any) // nil
+// WHY: later conditions can use earlier bound values.
+// TRY: pass "three" as the first argument.
 
-// if var changes only the local copy, not the outer optional.
+print("\n5. Change a local copy")
 let original: String? = "Draft"
 if var title = original {
     title += "!"
-    assert(title == "Draft!")
+    print(title) // Draft!
 }
-assert(original == "Draft")
-
-// while let extracts successive optional iterator results.
-var iterator = ["Mira", "Noah"].makeIterator()
-var collected: [String] = []
-while let name = iterator.next() {
-    collected.append(name)
-}
-assert(collected == ["Mira", "Noah"])
-assert(iterator.next() == nil)
-
-// Optional binding unwraps one layer, even for nested optionals.
-let nested: Int?? = .some(nil)
-if let inner = nested {
-    assert(inner == nil)
-}
-
-// Manual compiler experiments. Uncomment one block at a time.
-// 1. Optional methods need unwrapping:
-// let maybe: String? = "Mira"
-// print(maybe.uppercased()) // Error: optional value must be unwrapped.
-//
-// 2. A bound name cannot escape the if branch:
-// if let value = Int("42") { print(value) }
-// print(value) // Error: cannot find value in scope.
-//
-// 3. if let creates a constant, not a mutable variable:
-// if let value = Int("42") { value += 1 } // Error: let constant.
-//
-// 4. guard else must exit the enclosing scope:
-// func invalidGuard(_ value: Int?) {
-//     guard let value else { print("missing") } // Error: else must not fall through.
-//     print(value)
-// }
-
-print("All Molecule #004 checks passed.")
+print(original ?? "Missing") // Draft
+// WHY: if var creates a mutable local binding, not a mutation of original.
+// TRY: replace if var with if let and see why title += fails.
