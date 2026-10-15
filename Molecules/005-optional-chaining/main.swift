@@ -1,4 +1,12 @@
-// Molecules of Swift #005 — Optional Chaining
+// -----------------------------------------------------------------------------
+// MOLECULES OF SWIFT · #005
+// Optional Chaining: Let Absence Flow Through an Expression
+//
+// Ivan Tokar · https://ivantokar.com
+// Article: https://ivantokar.com/posts/optional-chaining-let-absence-flow-through-an-expression
+// Playground: https://github.com/ivantokar/mos-playground
+// -----------------------------------------------------------------------------
+//
 //
 // A small, executable lesson. Read it from top to bottom, then change the
 // values and run it again with: swift run molecule-005
