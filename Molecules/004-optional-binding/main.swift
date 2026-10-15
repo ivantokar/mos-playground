@@ -1,4 +1,12 @@
-// Molecules of Swift #004 — Optional Binding
+// -----------------------------------------------------------------------------
+// MOLECULES OF SWIFT · #004
+// Optional Binding: Turn an Optional Into a Value
+//
+// Ivan Tokar · https://ivantokar.com
+// Article: https://ivantokar.com/posts/optional-binding-turn-an-optional-into-a-value
+// Playground: https://github.com/ivantokar/mos-playground
+// -----------------------------------------------------------------------------
+//
 // An optional may hold a value or nil. if let opens the present case.
 
 print("1. Convert user input")
