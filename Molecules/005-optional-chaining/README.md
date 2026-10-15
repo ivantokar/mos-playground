@@ -11,7 +11,7 @@ swift build
 swift run molecule-005
 ```
 
-Read [main.swift](main.swift) from top to bottom. Each section now has an explanation and an experiment. Many examples use assertions, which do not print anything when they pass.
+Read [main.swift](main.swift) from top to bottom. Follow the explanations and experiments in each section.
 
 ## Learning path
 
@@ -25,7 +25,7 @@ Read [main.swift](main.swift) from top to bottom. Each section now has an explan
 
 Run the program once. Then follow the **Try it** comments, changing only one value at a time. Predict the output before each run.
 
-Some examples still use assertions rather than printing intermediate values. For those sections, add print statements to inspect the result. For deeper technical detail, read the [chapter](https://github.com/ivantokar/ivantokar.com/blob/article/optional-chaining-let-absence-flow-through-an-expression/apps/website/src/posts/optional-chaining-let-absence-flow-through-an-expression.mdx).
+For deeper technical detail, read the [chapter](https://github.com/ivantokar/ivantokar.com/blob/article/optional-chaining-let-absence-flow-through-an-expression/apps/website/src/posts/optional-chaining-let-absence-flow-through-an-expression.mdx).
 
 ## Further reading
 
