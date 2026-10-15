@@ -17,6 +17,4 @@ Each numbered section explains the Swift rule and includes a concrete **TRY** ex
 
 The sections progress from the core idea to practical uses. Compiler experiments should be attempted deliberately, not enabled in the normal executable.
 
-## Article
-
-[Read the full chapter](https://ivantokar.com/posts/optional-binding-turn-an-optional-into-a-value)
+**Read the article:** [Optional Binding: Turn an Optional Into a Value](https://ivantokar.com/posts/optional-binding-turn-an-optional-into-a-value)
