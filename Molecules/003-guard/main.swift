@@ -1,3 +1,14 @@
+// -----------------------------------------------------------------------------
+// MOLECULES OF SWIFT · #003
+// guard: Keep the Main Path Flat
+//
+// Ivan Tokar · https://ivantokar.com
+// Article: https://ivantokar.com/posts/guard-keep-the-main-path-flat
+// Playground: https://github.com/ivantokar/mos-playground
+// -----------------------------------------------------------------------------
+//
+// Explore. Change things. Break things. Learn why.
+
 import Foundation
 
 print("Molecule #003 — guard: Keep the Main Path Flat")
