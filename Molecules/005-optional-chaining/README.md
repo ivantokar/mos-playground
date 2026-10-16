@@ -1,6 +1,6 @@
-# Molecules of Swift #005 — Optional Chaining
+# Molecules of Swift #005 — Optional Chaining: Let Absence Flow Through an Expression
 
-An executable lesson about reading and working with optional values.
+Explore how `?.` reads, calls, and assigns through optional values, and what happens when a link is missing.
 
 ## Run
 
@@ -11,24 +11,16 @@ swift build
 swift run molecule-005
 ```
 
-Read [main.swift](main.swift) from top to bottom. Follow the explanations and experiments in each section.
+## What you will learn
 
-## Learning path
+- A chain stops at the first `nil`, but preserves values such as `false` and an empty string.
+- Chained assignment and method calls skip evaluating their arguments when the receiver is missing.
+- Chained dictionary mutation updates existing values but does not create missing keys.
+- `??` handles `nil`, not invalid or empty values.
+- Optional chaining does not prevent invalid indexing or forced-unwrap traps.
 
-1. **Read an optional property.** Use `?.` to read a property only when the value exists. Use `??` for a fallback.
-2. **Follow nested values.** See how multiple optional links still produce a single optional result.
-3. **Use optional binding.** Compare a quick read with `if let` when you need the value.
-4. **Update existing dictionary data.** Change an array under an existing key without creating a missing entry.
-5. **Under the Hood.** Observe how an optional assignment skips evaluating its right-hand side when the target is `nil`.
+## Explore the code
 
-## How to learn from it
-
-Run the program once. Then follow the **Try it** comments, changing only one value at a time. Predict the output before each run.
-
-
-
-## Further reading
-
-[Swift Book — Optional Chaining](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/optionalchaining/)
+Read [main.swift](main.swift) in order. Each section explains the behavior, shows the result, and gives a specific change to try. Intentionally unsafe examples are commented out.
 
 **Read the article:** [Optional Chaining: Let Absence Flow Through an Expression](https://ivantokar.com/posts/optional-chaining-let-absence-flow-through-an-expression)
