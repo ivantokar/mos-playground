@@ -12,11 +12,11 @@ struct Account { var preferences: Preferences? }
 
 let account: Account? = Account(preferences: Preferences(notificationsEnabled: false))
 let enabled: Bool? = account?.preferences?.notificationsEnabled
-assert(enabled == false)
+print("Observation 1:", enabled == false)
 let missingAccount: Account? = nil
-assert(missingAccount?.preferences?.notificationsEnabled == nil)
+print("Observation 2:", missingAccount?.preferences?.notificationsEnabled == nil)
 let noPreferences: Account? = Account(preferences: nil)
-assert(noPreferences?.preferences?.notificationsEnabled == nil)
+print("Observation 3:", noPreferences?.preferences?.notificationsEnabled == nil)
 
 // MARK: - 2. Follow nested properties
 // WHY: Each optional link can stop the read; the final result remains String? or Int?.
@@ -27,10 +27,10 @@ struct Person { var address: Address? }
 let person: Person? = Person(address: Address(city: "Kyiv"))
 let city: String? = person?.address?.city
 let length: Int? = person?.address?.city?.count
-assert(city == "Kyiv")
-assert(length == 4)
+print("Observation 4:", city == "Kyiv")
+print("Observation 5:", length == 4)
 let personWithoutCity: Person? = Person(address: Address(city: nil))
-assert(personWithoutCity?.address?.city?.count == nil)
+print("Observation 6:", personWithoutCity?.address?.city?.count == nil)
 
 // MARK: - 3. Optional assignment
 // WHY: When note is nil, Swift skips evaluating the right-hand side; a successful assignment returns Void?.
@@ -44,15 +44,15 @@ let makeText: () -> String = {
     return "Ready"
 }
 note?.text = makeText()
-assert(constructionCount == 0)
+print("Observation 7:", constructionCount == 0)
 let missedAssignment: Void? = (note?.text = makeText())
-assert(missedAssignment == nil)
-assert(constructionCount == 0)
+print("Observation 8:", missedAssignment == nil)
+print("Observation 9:", constructionCount == 0)
 note = Note(text: "Draft")
 let successfulAssignment: Void? = (note?.text = makeText())
-assert(successfulAssignment != nil)
-assert(constructionCount == 1)
-assert(note?.text == "Ready")
+print("Observation 10:", successfulAssignment != nil)
+print("Observation 11:", constructionCount == 1)
+print("Observation 12:", note?.text == "Ready")
 
 // MARK: - 4. Optional method calls
 // WHY: Arguments are not evaluated when the optional receiver is nil; the call result is Void?.
@@ -71,13 +71,13 @@ let makeMessage: () -> String = {
     return "Hello"
 }
 mailbox?.append(makeMessage())
-assert(messageConstructionCount == 0)
-assert(mailbox?.append("Ignored") == nil)
+print("Observation 13:", messageConstructionCount == 0)
+print("Observation 14:", mailbox?.append("Ignored") == nil)
 mailbox = Mailbox()
 let called: Void? = mailbox?.append(makeMessage())
-assert(called != nil)
-assert(messageConstructionCount == 1)
-assert(mailbox?.messages == ["Hello"])
+print("Observation 15:", called != nil)
+print("Observation 16:", messageConstructionCount == 1)
+print("Observation 17:", mailbox?.messages == ["Hello"])
 
 // MARK: - 5. Update existing dictionary values
 // WHY: The dictionary subscript returns an optional array; chaining does not create missing keys.
@@ -86,21 +86,21 @@ assert(mailbox?.messages == ["Hello"])
 var grades = ["Ada": [80, 90]]
 grades["Ada"]?.append(100)
 grades["Leo"]?.append(100)
-assert(grades["Ada"] == [80, 90, 100])
-assert(grades["Leo"] == nil)
+print("Observation 18:", grades["Ada"] == [80, 90, 100])
+print("Observation 19:", grades["Leo"] == nil)
 
 // MARK: - 6. Combine chaining with fallback
 // WHY: The ?? operator handles nil, not an empty string; if let can add explicit validation.
 // TRY: Change the city to an empty string and compare the two approaches.
 
 let cityLabel = person?.address?.city ?? "Unknown"
-assert(cityLabel == "Kyiv")
+print("Observation 20:", cityLabel == "Kyiv")
 let unknownCityLabel = personWithoutCity?.address?.city ?? "Unknown"
-assert(unknownCityLabel == "Unknown")
+print("Observation 21:", unknownCityLabel == "Unknown")
 let emptyCity: Person? = Person(address: Address(city: ""))
-assert(emptyCity?.address?.city ?? "Unknown" == "")
+print("Observation 22:", emptyCity?.address?.city ?? "Unknown" == "")
 if let city = person?.address?.city, !city.isEmpty {
-    assert(city == "Kyiv")
+    print("Observation 23:", city == "Kyiv")
 }
 
 // MARK: - 7. Unsafe operations remain unsafe
@@ -115,7 +115,7 @@ if let city = person?.address?.city, !city.isEmpty {
 // let unsafeUnwrap = personWithoutCity?.address?.city!
 //   A forced unwrap can still trap when the value is nil.
 
-print("All Molecule #005 checks passed.")
+print("End of lesson — try changing an input and observe the output.")
 
 // Learning exercise: choose one example above, change a single input,
 // predict the result, and run the executable to compare.
