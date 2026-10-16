@@ -9,63 +9,54 @@
 //
 // Explore. Change things. Break things. Learn why.
 
-// Read the examples in order. Each printed value illustrates the rule nearby.
+// MARK: - 1. Bind only when conversion succeeds
+// WHAT: Int(String) returns Int? because parsing can fail.
+// WHY: if let gives the success branch an Int, without force-unwrapping.
+// EXPECT: "Next number: 43", then "Invalid number".
 
-print("Molecule #004 — Optional Binding")
-
-// MARK: - 1. Parse a value
-// WHAT: Explore parse a value through the example below.
-// WHY: Int returns an optional: if let gives the successful branch a usable Int.
-// TRY: Change "42" to "forty-two" and compare the branches.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
-
-// A successful binding creates a non-optional local value.
 if let number = Int("42") {
-    print("Example 1 — number + 1 == 43:", number + 1 == 43)
+    print("Next number:", number + 1)
 }
 if let number = Int("invalid") {
-    print("Unexpected: \(number)")
+    print("Parsed:", number)
 } else {
-    print("Invalid input was skipped.")
+    print("Invalid number")
 }
+// TRY: Replace "42" with "forty-two". Which branch will run?
 
-// MARK: - 2. Short binding
-// WHAT: Explore short binding through the example below.
-// WHY: if let nickname binds a non-optional String only inside the if body.
-// TRY: Set nickname to nil and observe the skipped body.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// MARK: - 2. Short binding keeps the same name
+// WHAT: if let nickname creates a nonoptional value inside its branch.
+// WHY: You can use the familiar name without repeatedly unwrapping.
+// EXPECT: "MIRA", followed by Optional("Mira") outside the branch.
 
-// Short binding shadows the optional only inside the if branch.
 let nickname: String? = "Mira"
 if let nickname {
-    print("Example 2 — nickname.uppercased() == 'MIRA':", nickname.uppercased() == "MIRA")
+    print("Uppercase nickname:", nickname.uppercased())
 }
-print("Example 3 — nickname == 'Mira':", nickname == "Mira")
+print("Original optional:", nickname as Any)
+// TRY: Set nickname to nil and observe which print disappears.
 
-// MARK: - 3. Presence versus validity
-// WHAT: Explore presence versus validity through the example below.
-// WHY: Zero and empty text are present values; binding alone does not validate them.
-// TRY: Change empty to "Swift" and compare both conditions.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// MARK: - 3. Presence is not validation
+// WHAT: Optional binding tests for nil, not for zero or empty text.
+// WHY: A present value may still fail your application's requirements.
+// EXPECT: Both values bind; the empty string fails the extra condition.
 
-// Presence does not imply nonempty or nonzero.
 let zero: Int? = 0
 let empty: String? = ""
-if let zero { print("Example 4 — zero == 0:", zero == 0) }
-if let empty { print("Example 5 — empty.isEmpty:", empty.isEmpty) }
+if let zero { print("Zero is present:", zero) }
+if let empty { print("Empty text is present:", empty.isEmpty) }
 if let empty, !empty.isEmpty {
-    print("Only a nonempty value reaches this line: \(empty)")
+    print("Nonempty text:", empty)
+} else {
+    print("No nonempty text")
 }
+// TRY: Change empty to "Swift" and compare both checks.
 
-// MARK: - 4. Short-circuit evaluation
-// WHAT: Explore short-circuit evaluation through the example below.
-// WHY: Conditions are evaluated from left to right; laterValue is not called after a failed binding.
-// TRY: Change missing to 2 and predict how calls changes.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// MARK: - 4. Conditions stop after the first failure
+// WHAT: Comma-separated conditions are evaluated from left to right.
+// WHY: Later calls are skipped when an earlier binding fails.
+// EXPECT: The counter stays 0 for missing, then becomes 1 for present.
 
-// Comma-separated conditions stop evaluating after a failure.
-// Top-level variables in main.swift are main-actor isolated in Swift 6,
-// so the function that mutates the counter has to be isolated too.
 var calls = 0
 @MainActor func laterValue() -> Int? {
     calls += 1
@@ -73,98 +64,85 @@ var calls = 0
 }
 let missing: Int? = nil
 if let first = missing, let second = laterValue(), first < second {
-    print("Unexpected: \(first) \(second)")
+    print("Pair:", first, second)
 }
-print("Example 6 — calls == 0:", calls == 0)
+print("Calls after nil:", calls)
 let present: Int? = 4
 if let first = present, let second = laterValue(), first < second {
-    print("Example 7 — first == 4 && second == 9:", first == 4 && second == 9)
+    print("Pair:", first, second)
 }
-print("Example 8 — calls == 1:", calls == 1)
+print("Calls after value:", calls)
+// TRY: Change missing to 2 and predict how many times laterValue runs.
 
-// MARK: - 5. Dependent bindings
-// WHAT: Explore dependent bindings through the example below.
-// WHY: Later conditions can use earlier bindings to validate a range.
-// TRY: Try parsedRange("3", "2") and parsedRange("three", "7").
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// MARK: - 5. Later bindings can use earlier values
+// WHAT: Each successful binding becomes available to subsequent conditions.
+// WHY: Parse and validate a range without force-unwrapping either bound.
 
-// Earlier bindings are available in later conditions.
 func parsedRange(_ lower: String, _ upper: String) -> ClosedRange<Int>? {
     if let start = Int(lower), let end = Int(upper), start <= end {
         return start...end
     }
     return nil
 }
-print("Example 9 — parsedRange('3', '7') == 3...7:", parsedRange("3", "7") == 3...7)
-print("Example 10 — parsedRange('7', '3') == nil:", parsedRange("7", "3") == nil)
-print("Example 11 — parsedRange('three', '7') == nil:", parsedRange("three", "7") == nil)
+print("Valid range:", parsedRange("3", "7") as Any)
+print("Reversed range:", parsedRange("7", "3") as Any)
+print("Invalid number:", parsedRange("three", "7") as Any)
+// EXPECT: Optional(ClosedRange(3...7)), nil, nil.
+// TRY: Change the second bound to "2" and explain why the range disappears.
 
-// MARK: - 6. Mutable local binding
-// WHAT: Explore mutable local binding through the example below.
-// WHY: if var creates a mutable local copy; original remains unchanged.
-// TRY: Replace if var with if let and inspect the compiler diagnostic.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// MARK: - 6. if var changes a local copy
+// WHAT: if var binds a mutable copy of the unwrapped value.
+// WHY: Changing that local variable does not mutate the original optional.
 
-// if var changes only the local copy, not the outer optional.
 let original: String? = "Draft"
 if var title = original {
     title += "!"
-    print("Example 12 — title == 'Draft!':", title == "Draft!")
+    print("Local title:", title)
 }
-print("Example 13 — original == 'Draft':", original == "Draft")
+print("Original title:", original as Any)
+// EXPECT: "Draft!" and Optional("Draft").
+// TRY: Change if var to if let and inspect the compiler diagnostic.
 
-// MARK: - 7. Repeated binding
-// WHAT: Explore repeated binding through the example below.
-// WHY: while let unwraps each iterator result until next() returns nil.
-// TRY: Add a third name and predict the collected array.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// MARK: - 7. while let unwraps successive values
+// WHAT: Iterator.next() returns nil when there are no more elements.
+// WHY: while let ends naturally without a separate index or sentinel.
 
-// while let extracts successive optional iterator results.
 var iterator = ["Mira", "Noah"].makeIterator()
-var collected: [String] = []
 while let name = iterator.next() {
-    collected.append(name)
+    print("Next name:", name)
 }
-print("Example 14 — collected == ['Mira', 'Noah']:", collected == ["Mira", "Noah"])
-print("Example 15 — iterator.next() == nil:", iterator.next() == nil)
+print("After iteration:", iterator.next() as Any)
+// EXPECT: Mira, Noah, then nil.
+// TRY: Add "Ava" and predict the extra line.
 
-// MARK: - 8. Nested optionals
-// WHAT: Explore nested optionals through the example below.
-// WHY: Binding unwraps one optional layer, not all nested layers at once.
-// TRY: Change nested from .some(nil) to nil and see whether the branch executes.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// MARK: - 8. Binding removes only one optional layer
+// WHAT: Int?? can hold an outer value whose inner value is nil.
+// WHY: One if let does not unwrap every optional layer.
 
-// Optional binding unwraps one layer, even for nested optionals.
 let nested: Int?? = .some(nil)
 if let inner = nested {
-    print("Example 16 — inner == nil:", inner == nil)
+    print("Outer optional exists; inner value:", inner as Any)
+} else {
+    print("Outer optional is missing")
 }
+// EXPECT: The first branch runs and prints nil.
+// TRY: Replace .some(nil) with nil, then with .some(.some(7)).
 
 // MARK: - 9. Compiler experiments
-// WHAT: Explore compiler experiments through the example below.
-// WHY: The commented invalid examples demonstrate scope, mutability, and required unwrapping.
-// TRY: Uncomment one example at a time and inspect the compiler diagnostic.
-// EXPECT: Compare the printed observation before and after this edit; the value on each line comes from the expression shown in its label.
+// Uncomment ONE example at a time to see Swift enforce the rule.
 
-// Manual compiler experiments. Uncomment one block at a time.
-// 1. Optional methods need unwrapping:
 // let maybe: String? = "Mira"
-// print(maybe.uppercased()) // Error: optional value must be unwrapped.
+// print(maybe.uppercased()) // An optional must be unwrapped.
 //
-// 2. A bound name cannot escape the if branch:
 // if let value = Int("42") { print(value) }
-// print(value) // Error: cannot find value in scope.
+// print(value) // The binding does not escape its if branch.
 //
-// 3. if let creates a constant, not a mutable variable:
-// if let value = Int("42") { value += 1 } // Error: let constant.
+// if let value = Int("42") { value += 1 } // if let creates a constant.
 //
-// 4. guard else must exit the enclosing scope:
 // func invalidGuard(_ value: Int?) {
-//     guard let value else { print("missing") } // Error: else must not fall through.
+//     guard let value else { print("missing") } // guard else must exit.
 //     print(value)
 // }
 
-print("End of lesson — try changing an input and observe the output.")
-
-// Learning exercise: choose one example above, change a single input,
-// predict the result, and run the executable to compare.
+// Takeaway: binding proves that a value exists; validation is a separate step.
+// Final experiment: Set each optional to nil and predict which code is skipped.
