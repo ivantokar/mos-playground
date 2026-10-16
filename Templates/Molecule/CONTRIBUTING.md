@@ -6,9 +6,9 @@ Use this directory as the **canonical starting point** for every new molecule. C
 
 1. Keep the branded header, author, article and repository links.
 2. Use numbered `// MARK: -` sections. The exact number of sections may grow with the topic; never delete established sections when editing a published molecule without explicit approval.
-3. Teach progressively: WHAT, WHY, a small runnable example, exact expected output, and a concrete TRY experiment for each meaningful section.
-4. Include a practical Swift micro-pattern, an Under the Hood detail, composition/trade-offs, and a conclusion. Use compiler experiments only when they teach a verified rule.
-5. Examples must be educational and observable. `assert` can support verification but must **not replace explanation or visible output**.
+3. Choose a topic-specific learning progression rather than a fixed number or order of sections. Explain WHAT and WHY, demonstrate visible output, interpret that output, and provide a concrete TRY experiment for meaningful examples.
+4. Include micro-patterns, language internals, composition, limitations and compiler experiments when they genuinely help teach this particular feature; do not force them into every lesson. End with a meaningful takeaway or experiment.
+5. Examples must be educational and observable. Do not use `assert` as the lesson or mechanically convert assertions to unlabeled Boolean prints. Put automated verification outside the learning narrative.
 6. Preserve existing code, comments, metadata and structure when revising an existing molecule. Prefer targeted additions; review the diff against the original.
 7. Confirm technical claims against primary Swift sources; verify the actual Swift toolchain, `swift build`, `swift run molecule-NNN`, and GitHub CI. Never invent results.
 8. README must describe the code that is **actually in main.swift**, not a planned version.
