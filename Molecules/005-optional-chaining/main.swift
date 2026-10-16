@@ -53,7 +53,7 @@ print("Missing city length:", personWithoutCity?.address?.city?.count as Any)
 struct Note { var text: String }
 var note: Note? = nil
 var textBuilds = 0
-func nextText() -> String {
+@MainActor func nextText() -> String {
     textBuilds += 1
     return "Ready"
 }
@@ -79,7 +79,7 @@ struct Mailbox {
 
 var mailbox: Mailbox? = nil
 var messageBuilds = 0
-func nextMessage() -> String {
+@MainActor func nextMessage() -> String {
     messageBuilds += 1
     return "Hello"
 }
