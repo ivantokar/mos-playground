@@ -19,7 +19,7 @@ print("Molecule #004 — Optional Binding")
 
 // A successful binding creates a non-optional local value.
 if let number = Int("42") {
-    assert(number + 1 == 43)
+    print("Observation 1:", number + 1 == 43)
 }
 if let number = Int("invalid") {
     print("Unexpected: \(number)")
@@ -34,9 +34,9 @@ if let number = Int("invalid") {
 // Short binding shadows the optional only inside the if branch.
 let nickname: String? = "Mira"
 if let nickname {
-    assert(nickname.uppercased() == "MIRA")
+    print("Observation 2:", nickname.uppercased() == "MIRA")
 }
-assert(nickname == "Mira")
+print("Observation 3:", nickname == "Mira")
 
 // MARK: - 3. Presence versus validity
 // WHY: Zero and empty text are present values; binding alone does not validate them.
@@ -45,8 +45,8 @@ assert(nickname == "Mira")
 // Presence does not imply nonempty or nonzero.
 let zero: Int? = 0
 let empty: String? = ""
-if let zero { assert(zero == 0) }
-if let empty { assert(empty.isEmpty) }
+if let zero { print("Observation 4:", zero == 0) }
+if let empty { print("Observation 5:", empty.isEmpty) }
 if let empty, !empty.isEmpty {
     print("Only a nonempty value reaches this line: \(empty)")
 }
@@ -67,12 +67,12 @@ let missing: Int? = nil
 if let first = missing, let second = laterValue(), first < second {
     print("Unexpected: \(first) \(second)")
 }
-assert(calls == 0)
+print("Observation 6:", calls == 0)
 let present: Int? = 4
 if let first = present, let second = laterValue(), first < second {
-    assert(first == 4 && second == 9)
+    print("Observation 7:", first == 4 && second == 9)
 }
-assert(calls == 1)
+print("Observation 8:", calls == 1)
 
 // MARK: - 5. Dependent bindings
 // WHY: Later conditions can use earlier bindings to validate a range.
@@ -85,9 +85,9 @@ func parsedRange(_ lower: String, _ upper: String) -> ClosedRange<Int>? {
     }
     return nil
 }
-assert(parsedRange("3", "7") == 3...7)
-assert(parsedRange("7", "3") == nil)
-assert(parsedRange("three", "7") == nil)
+print("Observation 9:", parsedRange("3", "7") == 3...7)
+print("Observation 10:", parsedRange("7", "3") == nil)
+print("Observation 11:", parsedRange("three", "7") == nil)
 
 // MARK: - 6. Mutable local binding
 // WHY: if var creates a mutable local copy; original remains unchanged.
@@ -97,9 +97,9 @@ assert(parsedRange("three", "7") == nil)
 let original: String? = "Draft"
 if var title = original {
     title += "!"
-    assert(title == "Draft!")
+    print("Observation 12:", title == "Draft!")
 }
-assert(original == "Draft")
+print("Observation 13:", original == "Draft")
 
 // MARK: - 7. Repeated binding
 // WHY: while let unwraps each iterator result until next() returns nil.
@@ -111,8 +111,8 @@ var collected: [String] = []
 while let name = iterator.next() {
     collected.append(name)
 }
-assert(collected == ["Mira", "Noah"])
-assert(iterator.next() == nil)
+print("Observation 14:", collected == ["Mira", "Noah"])
+print("Observation 15:", iterator.next() == nil)
 
 // MARK: - 8. Nested optionals
 // WHY: Binding unwraps one optional layer, not all nested layers at once.
@@ -121,7 +121,7 @@ assert(iterator.next() == nil)
 // Optional binding unwraps one layer, even for nested optionals.
 let nested: Int?? = .some(nil)
 if let inner = nested {
-    assert(inner == nil)
+    print("Observation 16:", inner == nil)
 }
 
 // MARK: - 9. Compiler experiments
@@ -146,7 +146,7 @@ if let inner = nested {
 //     print(value)
 // }
 
-print("All Molecule #004 checks passed.")
+print("End of lesson — try changing an input and observe the output.")
 
 // Learning exercise: choose one example above, change a single input,
 // predict the result, and run the executable to compare.
