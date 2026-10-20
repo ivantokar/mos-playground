@@ -4,7 +4,7 @@
 
 This repository is a **Swift Package**. Each Molecule is a self-contained directory containing its executable example and its README.
 
-> **Note about updates:** I'm short on time at the moment, so updates to the scripts here may arrive later than the articles they're based on. Thanks for your patience.
+> **⏳ Note about updates:** I'm short on time at the moment, so updates to the scripts here may arrive later than the articles they're based on. Thanks for your patience.
 
 ## Structure
 
