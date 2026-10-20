@@ -6,8 +6,6 @@ Explore how `??` chooses a value, delays fallback work, composes with optional c
 
 [Nil Coalescing: Provide Defaults Without Branching](https://ivantokar.com/posts/nil-coalescing-provide-defaults-without-branching/)
 
-*The public article page will be available after publication.*
-
 ## Run
 
 From the repository root:
