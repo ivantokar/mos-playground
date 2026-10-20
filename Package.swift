@@ -10,6 +10,7 @@ let package = Package(
         .executable(name: "molecule-003", targets: ["Molecule003Guard"]),
         .executable(name: "molecule-004", targets: ["Molecule004OptionalBinding"]),
         .executable(name: "molecule-005", targets: ["Molecule005OptionalChaining"]),
+        .executable(name: "molecule-006", targets: ["Molecule006NilCoalescing"]),
     ],
     targets: [
         .executableTarget(
@@ -35,6 +36,11 @@ let package = Package(
         .executableTarget(
             name: "Molecule005OptionalChaining",
             path: "Molecules/005-optional-chaining",
+            exclude: ["README.md"]
+        ),
+        .executableTarget(
+            name: "Molecule006NilCoalescing",
+            path: "Molecules/006-nil-coalescing",
             exclude: ["README.md"]
         ),
     ]
