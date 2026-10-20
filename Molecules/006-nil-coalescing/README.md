@@ -23,4 +23,3 @@ swift run molecule-006
 
 Read [main.swift](main.swift) in order. Each numbered section shows observable output and includes a specific `TRY` experiment with a predicted change.
 
-The companion article link will be added after the canonical public article is published.
